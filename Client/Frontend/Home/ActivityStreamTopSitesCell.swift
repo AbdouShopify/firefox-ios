@@ -255,6 +255,11 @@ class ASHorizontalScrollCell: UITableViewCell {
         pageControl.progress = currentPage
         if currentPage == floor(currentPage) {
             UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, nil)
+
+            //hide the pagecontrol if only one page is visible
+            let layout = self.collectionView.collectionViewLayout as! HorizontalFlowLayout
+            self.pageControl.pageCount = layout.numberOfPages()
+            self.pageControl.hidden = self.pageControl.pageCount <= 1
         }
     }
 
